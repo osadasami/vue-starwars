@@ -1,55 +1,78 @@
 <script setup lang="ts">
+import Error from "@/components/Error.vue";
 import Spinner from "@/components/Spinner.vue";
 import SwapiService from "@/services/swapi";
 import { onMounted, reactive } from "vue";
 
 const state = reactive({
-  id: Math.floor(Math.random() * 10 + 2),
+  // id: Math.floor(Math.random() * 10 + 2),
+  id: 123123,
   name: null,
   population: null,
   rotationPeriod: null,
   diameter: null,
   isLoading: false,
+  isError: false,
 });
 
 onMounted(async () => {
-  updatePlanet();
+  try {
+    updatePlanet();
+  } catch (err) {
+    console.log("err", err);
+  }
 });
 
+function onLoadPlanet(data: any) {
+  Object.assign(state, { ...data, isLoading: false, isError: false });
+}
+
+function onError(err: any) {
+  Object.assign(state, { ...state, isLoading: false, isError: true });
+  console.log("err", err);
+}
+
 async function updatePlanet() {
-  Object.assign(state, { ...state, isLoading: true });
+  Object.assign(state, { ...state, isLoading: true, isError: false });
   const service = new SwapiService();
-  const data = await service.getPlanet(state.id);
-  Object.assign(state, { ...data, isLoading: false });
+  try {
+    const data = await service.getPlanet(state.id);
+    onLoadPlanet(data);
+  } catch (err) {
+    onError(err);
+  }
 }
 </script>
 
 <template>
   <div class="random-planet jumbotron rounded">
-    <Spinner v-if="state.isLoading" />
+    <Spinner v-if="state.isLoading && !state.isError" />
 
-    <img
-      v-if="!state.isLoading"
-      class="planet-image"
-      :src="`https://starwars-visualguide.com/assets/img/planets/${state.id}.jpg`"
-    />
-    <div v-if="!state.isLoading">
-      <h4>{{ state.name }}</h4>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <span class="term">Population</span>
-          <span>{{ state.population }}</span>
-        </li>
-        <li class="list-group-item">
-          <span class="term">Rotation Period</span>
-          <span>{{ state.rotationPeriod }}</span>
-        </li>
-        <li class="list-group-item">
-          <span class="term">Diameter</span>
-          <span>{{ state.diameter }}</span>
-        </li>
-      </ul>
-    </div>
+    <Error v-if="state.isError" :icon="`/death-star.png`" />
+
+    <template v-if="!state.isLoading && !state.isError">
+      <img
+        class="planet-image"
+        :src="`https://starwars-visualguide.com/assets/img/planets/${state.id}.jpg`"
+      />
+      <div>
+        <h4>{{ state.name }}</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <span class="term">Population</span>
+            <span>{{ state.population }}</span>
+          </li>
+          <li class="list-group-item">
+            <span class="term">Rotation Period</span>
+            <span>{{ state.rotationPeriod }}</span>
+          </li>
+          <li class="list-group-item">
+            <span class="term">Diameter</span>
+            <span>{{ state.diameter }}</span>
+          </li>
+        </ul>
+      </div>
+    </template>
   </div>
 </template>
 
