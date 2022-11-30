@@ -11,14 +11,14 @@ const state = reactive({
 });
 
 onMounted(async () => {
+  updatePlanet();
+});
+
+async function updatePlanet() {
   const service = new SwapiService();
   const data = await service.getPlanet(state.id);
-
-  state.name = data.name;
-  state.population = data.population;
-  state.rotationPeriod = data.rotation_period;
-  state.diameter = data.diameter;
-});
+  Object.assign(state, data);
+}
 </script>
 
 <template>
