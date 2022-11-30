@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Spinner from "@/components/Spinner.vue";
 import SwapiService from "@/services/swapi";
 import { onMounted, reactive } from "vue";
 
@@ -8,6 +9,7 @@ const state = reactive({
   population: null,
   rotationPeriod: null,
   diameter: null,
+  isLoading: false,
 });
 
 onMounted(async () => {
@@ -15,19 +17,23 @@ onMounted(async () => {
 });
 
 async function updatePlanet() {
+  Object.assign(state, { ...state, isLoading: true });
   const service = new SwapiService();
   const data = await service.getPlanet(state.id);
-  Object.assign(state, data);
+  Object.assign(state, { ...data, isLoading: false });
 }
 </script>
 
 <template>
   <div class="random-planet jumbotron rounded">
+    <Spinner v-if="state.isLoading" />
+
     <img
+      v-if="!state.isLoading"
       class="planet-image"
       :src="`https://starwars-visualguide.com/assets/img/planets/${state.id}.jpg`"
     />
-    <div>
+    <div v-if="!state.isLoading">
       <h4>{{ state.name }}</h4>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
