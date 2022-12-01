@@ -1,47 +1,30 @@
 <script setup lang="ts">
-import SwapiService from "@/services/swapi";
-import { onMounted, reactive } from "vue";
+import usePepleStore from "@/stores/people";
+import { onMounted } from "vue";
 import Error from "./Error.vue";
 import Spinner from "./Spinner.vue";
 
-const swapiService = new SwapiService();
-const state = reactive<any>({
-  people: [],
-  selectedPerson: null,
-  isLoading: false,
-  isError: false,
-  error: null,
-});
+const peopleStore = usePepleStore();
 
 onMounted(async () => {
-  try {
-    state.isLoading = true;
-    state.isError = false;
-    const data = await swapiService.getAllPeople();
-    state.people = data;
-  } catch (err: any) {
-    state.isError = true;
-    state.error = err;
-  } finally {
-    state.isLoading = false;
-  }
+  peopleStore.getPeople();
 });
 
-function selectPerson(personName: string) {
-  state.selectedPerson = personName;
+function selectPerson(name: string) {
+  peopleStore.selectPerson(name);
 }
 </script>
 
 <template>
-  <Spinner v-if="state.isLoading" />
-  <Error v-if="state.isError" />
-  <template v-if="!state.isLoading && !state.isError">
+  <Spinner v-if="peopleStore.isLoading" />
+  <Error v-if="peopleStore.isError" />
+  <template v-if="!peopleStore.isLoading && !peopleStore.isError">
     <ul class="item-list list-group">
       <li
         @click="selectPerson(person.name)"
-        v-for="person in state.people"
+        v-for="person in peopleStore.people"
         class="list-group-item"
-        :class="{ 'bg-primary': person.name === state.selectedPerson }"
+        :class="{ 'bg-primary': person.name === peopleStore.selectedPerson }"
       >
         {{ person.name }}
       </li>

@@ -1,87 +1,50 @@
 <script setup lang="ts">
 import Error from "@/components/Error.vue";
 import Spinner from "@/components/Spinner.vue";
-import SwapiService from "@/services/swapi";
-import { onMounted, reactive } from "vue";
+import usePlanetStore from "@/stores/planet";
+import { onMounted } from "vue";
 
-const state = reactive({
-  id: null,
-  name: null,
-  population: null,
-  rotationPeriod: null,
-  diameter: null,
-  isLoading: false,
-  isError: false,
-});
+const planetStore = usePlanetStore();
 
 onMounted(async () => {
-  updatePlanet();
-  updatePlanetEvery(20000);
+  planetStore.getPlanet();
+  setInterval(planetStore.getPlanet, 20000);
 });
-
-function updatePlanetEvery(ms: number) {
-  try {
-    setInterval(updatePlanet, ms);
-  } catch (err) {
-    console.log("err", err);
-  }
-}
-
-function onLoadPlanet(data: any) {
-  Object.assign(state, { ...data, isLoading: false, isError: false });
-}
-
-function onError(err: any) {
-  Object.assign(state, { ...state, isLoading: false, isError: true });
-  console.log("err", err);
-}
-
-async function updatePlanet() {
-  const id = Math.floor(Math.random() * 10 + 2);
-  Object.assign(state, { ...state, isLoading: true, isError: false, id });
-  const service = new SwapiService();
-  try {
-    const data = await service.getPlanet(id);
-    onLoadPlanet(data);
-  } catch (err) {
-    onError(err);
-  }
-}
 </script>
 
 <template>
   <div class="random-planet">
-    <Spinner v-if="state.isLoading && !state.isError" />
+    <Spinner v-if="planetStore.isLoading && !planetStore.isError" />
 
-    <Error v-if="state.isError" :icon="`/death-star.png`" />
+    <Error v-if="planetStore.isError" :icon="`/death-star.png`" />
 
-    <template v-if="!state.isLoading && !state.isError">
+    <template v-if="!planetStore.isLoading && !planetStore.isError">
       <img
-        v-if="state.id"
+        v-if="planetStore.id"
         class="planet-image"
-        :src="`https://starwars-visualguide.com/assets/img/planets/${state.id}.jpg`"
+        :src="`https://starwars-visualguide.com/assets/img/planets/${planetStore.id}.jpg`"
       />
 
       <div>
-        <h4>{{ state.name }}</h4>
+        <h4>{{ planetStore.name }}</h4>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <span class="term">Population</span>
-            <span>{{ state.population }}</span>
+            <span>{{ planetStore.population }}</span>
           </li>
           <li class="list-group-item">
             <span class="term">Rotation Period</span>
-            <span>{{ state.rotationPeriod }}</span>
+            <span>{{ planetStore.rotationPeriod }}</span>
           </li>
           <li class="list-group-item">
             <span class="term">Diameter</span>
-            <span>{{ state.diameter }}</span>
+            <span>{{ planetStore.diameter }}</span>
           </li>
         </ul>
       </div>
     </template>
   </div>
-  <button @click="updatePlanet" class="btn btn-primary">
+  <button @click="planetStore.getPlanet" class="btn btn-primary">
     Get random planet
   </button>
 </template>
