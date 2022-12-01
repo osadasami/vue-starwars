@@ -10,8 +10,8 @@ onMounted(async () => {
   peopleStore.getPeople();
 });
 
-function selectPerson(name: string) {
-  peopleStore.selectPerson(name);
+function selectPerson(person: any) {
+  peopleStore.selectPerson(person);
 }
 </script>
 
@@ -21,10 +21,12 @@ function selectPerson(name: string) {
   <template v-if="!peopleStore.isLoading && !peopleStore.isError">
     <ul class="item-list list-group">
       <li
-        @click="selectPerson(person.name)"
+        @click="selectPerson(person)"
         v-for="person in peopleStore.people"
         class="list-group-item"
-        :class="{ 'bg-primary': person.name === peopleStore.selectedPerson }"
+        :class="{
+          'bg-primary': person.id === peopleStore?.selectedPerson,
+        }"
       >
         {{ person.name }}
       </li>

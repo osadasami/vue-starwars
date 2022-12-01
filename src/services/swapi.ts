@@ -76,8 +76,8 @@ export default class SwapiService {
       id,
       name: data.name,
       gender: data.gender,
-      birthYear: data.birthYear,
-      eyeColor: data.eyeColor,
+      birthYear: data.birth_year,
+      eyeColor: data.eye_color,
     };
   };
 }

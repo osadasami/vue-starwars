@@ -2,12 +2,14 @@ import SwapiService from "@/services/swapi";
 import { defineStore } from "pinia";
 
 const usePeopleStore = defineStore("people", {
-  state: () => ({
-    people: [] as any,
-    selectedPerson: null as any,
-    isLoading: false,
-    isError: false,
-  }),
+  state: () =>
+    ({
+      people: [],
+      selectedPerson: null,
+      isLoading: false,
+      isError: false,
+    } as any),
+
   actions: {
     async getPeople() {
       const swapiService = new SwapiService();
@@ -23,8 +25,8 @@ const usePeopleStore = defineStore("people", {
         this.isLoading = false;
       }
     },
-    selectPerson(name: string) {
-      this.selectedPerson = name;
+    selectPerson(person: any) {
+      this.selectedPerson = person.id;
     },
   },
 });
