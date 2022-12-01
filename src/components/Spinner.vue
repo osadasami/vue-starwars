@@ -1,6 +1,6 @@
 <template>
-  <div className="lds-css">
-    <div className="lds-double-ring">
+  <div class="lds-css">
+    <div class="lds-double-ring">
       <div></div>
       <div></div>
     </div>

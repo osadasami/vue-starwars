@@ -5,8 +5,7 @@ import SwapiService from "@/services/swapi";
 import { onMounted, reactive } from "vue";
 
 const state = reactive({
-  // id: Math.floor(Math.random() * 10 + 2),
-  id: 123123,
+  id: null,
   name: null,
   population: null,
   rotationPeriod: null,
@@ -16,12 +15,17 @@ const state = reactive({
 });
 
 onMounted(async () => {
+  updatePlanet();
+  updatePlanetEvery(20000);
+});
+
+function updatePlanetEvery(ms: number) {
   try {
-    updatePlanet();
+    setInterval(updatePlanet, ms);
   } catch (err) {
     console.log("err", err);
   }
-});
+}
 
 function onLoadPlanet(data: any) {
   Object.assign(state, { ...data, isLoading: false, isError: false });
@@ -33,10 +37,11 @@ function onError(err: any) {
 }
 
 async function updatePlanet() {
-  Object.assign(state, { ...state, isLoading: true, isError: false });
+  const id = Math.floor(Math.random() * 10 + 2);
+  Object.assign(state, { ...state, isLoading: true, isError: false, id });
   const service = new SwapiService();
   try {
-    const data = await service.getPlanet(state.id);
+    const data = await service.getPlanet(id);
     onLoadPlanet(data);
   } catch (err) {
     onError(err);
@@ -45,16 +50,18 @@ async function updatePlanet() {
 </script>
 
 <template>
-  <div class="random-planet jumbotron rounded">
+  <div class="random-planet">
     <Spinner v-if="state.isLoading && !state.isError" />
 
     <Error v-if="state.isError" :icon="`/death-star.png`" />
 
     <template v-if="!state.isLoading && !state.isError">
       <img
+        v-if="state.id"
         class="planet-image"
         :src="`https://starwars-visualguide.com/assets/img/planets/${state.id}.jpg`"
       />
+
       <div>
         <h4>{{ state.name }}</h4>
         <ul class="list-group list-group-flush">
@@ -74,6 +81,9 @@ async function updatePlanet() {
       </div>
     </template>
   </div>
+  <button @click="updatePlanet" class="btn btn-primary">
+    Get random planet
+  </button>
 </template>
 
 <style>

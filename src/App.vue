@@ -10,11 +10,11 @@ import RandomPlanet from "@/components/RandomPlanet.vue";
     <Header />
     <RandomPlanet />
 
-    <div className="row mb2">
-      <div className="col-md-6">
+    <div class="row mb2">
+      <div class="col-md-6">
         <ItemList />
       </div>
-      <div className="col-md-6">
+      <div class="col-md-6">
         <PersonDetails />
       </div>
     </div>

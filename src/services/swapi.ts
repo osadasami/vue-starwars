@@ -44,7 +44,7 @@ export default class SwapiService {
     return url.match(/\/([0-9]*)\/$/)![1];
   }
 
-  transformPlanet(data: any) {
+  transformPlanet = (data: any) => {
     const id = this.extractId(data.url);
 
     return {
@@ -54,11 +54,12 @@ export default class SwapiService {
       rotationPeriod: data.rotation_period,
       diameter: data.diameter,
     };
-  }
+  };
 
-  transformStarship(data: any) {
+  transformStarship = (data: any) => {
+    const id = this.extractId(data.url);
     return {
-      id: this.extractId(data.url),
+      id,
       name: data.name,
       model: data.model,
       manufacturer: data.manufacturer,
@@ -67,15 +68,16 @@ export default class SwapiService {
       passengers: data.passengers,
       cargoCapacity: data.cargoCapacity,
     };
-  }
+  };
 
-  transformPerson(data: any) {
+  transformPerson = (data: any) => {
+    const id = this.extractId(data.url);
     return {
-      id: this.extractId(data.url),
+      id,
       name: data.name,
       gender: data.gender,
       birthYear: data.birthYear,
       eyeColor: data.eyeColor,
     };
-  }
+  };
 }
