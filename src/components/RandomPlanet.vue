@@ -2,13 +2,18 @@
 import Error from "@/components/Error.vue";
 import Spinner from "@/components/Spinner.vue";
 import usePlanetStore from "@/stores/planet";
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 const planetStore = usePlanetStore();
+let interval: any = null;
 
 onMounted(async () => {
   planetStore.getPlanet();
-  setInterval(planetStore.getPlanet, 20000);
+  interval = setInterval(planetStore.getPlanet, 20000);
+});
+
+onUnmounted(() => {
+  clearInterval(interval);
 });
 </script>
 

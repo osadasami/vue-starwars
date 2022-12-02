@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import ItemDetailsRecord from "@/components/ItemDetailsRecord.vue";
 import usePeopleStore from "@/stores/people";
 import Header from "./components/Header.vue";
+import ItemDetails from "./components/ItemDetails.vue";
 import ItemList from "./components/ItemList.vue";
-import PersonDetails from "./components/PersonDetails.vue";
 import RandomPlanet from "./components/RandomPlanet.vue";
 import SwapiService from "./services/swapi";
 
@@ -34,7 +35,51 @@ const swapiService = new SwapiService();
         </ItemList>
       </div>
       <div class="col-md-6">
-        <PersonDetails />
+        <ItemDetails
+          :id="3"
+          :get-data="swapiService.getPlanet"
+          :get-image-url="swapiService.getPlanetImage"
+          v-slot="{ item }: any"
+        >
+          <ItemDetailsRecord
+            :label="'Population'"
+            :prop="'population'"
+            :item="item"
+          />
+
+          <ItemDetailsRecord
+            :label="'Rotation Period'"
+            :prop="'rotationPeriod'"
+            :item="item"
+          />
+
+          <ItemDetailsRecord
+            :label="'Diameter'"
+            :prop="'diameter'"
+            :item="item"
+          />
+        </ItemDetails>
+
+        <ItemDetails
+          :id="10"
+          :get-data="swapiService.getStarship"
+          :get-image-url="swapiService.getStarshipImage"
+          v-slot="{ item }: any"
+        >
+          <ItemDetailsRecord :label="'Model'" :prop="'model'" :item="item" />
+
+          <ItemDetailsRecord
+            :label="'Manufacturer'"
+            :prop="'manufacturer'"
+            :item="item"
+          />
+          <ItemDetailsRecord :label="'Crew'" :prop="'crew'" :item="item" />
+          <ItemDetailsRecord
+            :label="'Passengers'"
+            :prop="'passengers'"
+            :item="item"
+          />
+        </ItemDetails>
       </div>
     </div>
   </div>

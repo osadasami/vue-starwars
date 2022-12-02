@@ -1,5 +1,6 @@
 export default class SwapiService {
-  apiBase = "https://swapi.dev/api";
+  apiBase = "https://swapi.py4e.com/api/";
+  imageBase = "https://starwars-visualguide.com/assets/img";
 
   getResource = async (url: string) => {
     const res = await fetch(`${this.apiBase}${url}`);
@@ -79,5 +80,17 @@ export default class SwapiService {
       birthYear: data.birth_year,
       eyeColor: data.eye_color,
     };
+  };
+
+  getPersonImage = (id: number) => {
+    return `${this.imageBase}/characters/${id}.jpg`;
+  };
+
+  getStarshipImage = (id: number) => {
+    return `${this.imageBase}/starships/${id}.jpg`;
+  };
+
+  getPlanetImage = (id: number) => {
+    return `${this.imageBase}/planets/${id}.jpg`;
   };
 }
