@@ -8,6 +8,7 @@ import RandomPlanet from "@/components/RandomPlanet.vue";
 <template>
   <div>
     <Header />
+
     <RandomPlanet />
 
     <div class="row mb2">

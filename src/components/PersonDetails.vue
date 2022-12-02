@@ -19,7 +19,9 @@ peopleStore.$subscribe((_: any, state: any) => {
 
     <Error v-if="personStore.isError" :icon="`/death-star.png`" />
 
-    <template v-if="personStore.person">
+    <p v-if="!personStore.person && !personStore.isLoading">Select person</p>
+
+    <template v-if="personStore.person && !personStore.isLoading">
       <img
         class="person-image"
         :src="`https://starwars-visualguide.com/assets/img/characters/${personStore.person?.id}.jpg`"
@@ -49,9 +51,9 @@ peopleStore.$subscribe((_: any, state: any) => {
 <style>
 .person-details {
   display: flex;
-  margin-top: 1rem;
   flex-direction: row;
   padding: 1rem;
+  border: 1px solid #444;
 }
 
 .person-details .person-image {
@@ -66,5 +68,9 @@ peopleStore.$subscribe((_: any, state: any) => {
 
 .person-details .list-group-item .term {
   margin-right: 0.5rem;
+}
+
+.person-details button {
+  margin-top: 5px;
 }
 </style>

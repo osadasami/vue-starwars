@@ -13,7 +13,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="random-planet">
+  <div class="random-planet jumbotron">
     <Spinner v-if="planetStore.isLoading && !planetStore.isError" />
 
     <Error v-if="planetStore.isError" :icon="`/death-star.png`" />
@@ -44,12 +44,19 @@ onMounted(async () => {
       </div>
     </template>
   </div>
-  <button @click="planetStore.getPlanet" class="btn btn-primary">
+
+  <button
+    @click="planetStore.getPlanet"
+    class="toggle-planet btn btn-primary btn-lg"
+  >
     Get random planet
   </button>
 </template>
 
 <style>
+.toggle-planet {
+  margin-bottom: 30px;
+}
 .random-planet {
   display: flex;
   padding: 1rem;
