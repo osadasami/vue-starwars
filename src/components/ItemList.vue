@@ -1,28 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from "vue";
-import Error from "./Error.vue";
-import Spinner from "./Spinner.vue";
-
-const isLoading = ref(false);
-const isError = ref(false);
-const items: Ref<any> = ref([]);
-
 const props = defineProps<{
-  getData: () => {};
+  items: any;
 }>();
-
-onMounted(async () => {
-  try {
-    isLoading.value = true;
-    isError.value = false;
-
-    items.value = await props.getData();
-  } catch (err) {
-    isError.value = true;
-  } finally {
-    isLoading.value = false;
-  }
-});
 
 function selectItem(item: any) {
   // props.onSelect(item);
@@ -30,22 +9,18 @@ function selectItem(item: any) {
 </script>
 
 <template>
-  <Spinner v-if="isLoading" />
-  <Error v-if="isError" />
-  <template v-if="!isLoading && !isError">
-    <ul class="item-list list-group">
-      <li
-        v-for="item in items"
-        @click="selectItem(item)"
-        class="list-group-item"
-        :class="{
-          // 'bg-primary': item.id === props?.selectedItem,
-        }"
-      >
-        <slot :item="item"></slot>
-      </li>
-    </ul>
-  </template>
+  <ul class="item-list list-group">
+    <li
+      v-for="item in items"
+      @click="selectItem(item)"
+      class="list-group-item"
+      :class="{
+        // 'bg-primary': item.id === props?.selectedItem,
+      }"
+    >
+      <slot :item="item"></slot>
+    </li>
+  </ul>
 </template>
 
 <style>

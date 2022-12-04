@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import Header from "@/components/Header.vue";
+import ItemDetails from "@/components/ItemDetails.vue";
 import ItemDetailsRecord from "@/components/ItemDetailsRecord.vue";
+import ItemList from "@/components/ItemList.vue";
+import RandomPlanet from "@/components/RandomPlanet.vue";
+import SwapiService from "@/services/swapi";
 import usePeopleStore from "@/stores/people";
-import Header from "./components/Header.vue";
-import ItemDetails from "./components/ItemDetails.vue";
-import ItemList from "./components/ItemList.vue";
-import RandomPlanet from "./components/RandomPlanet.vue";
-import SwapiService from "./services/swapi";
+import WithData from "./components/WithData.vue";
 
 const peopleStore = usePeopleStore();
 const swapiService = new SwapiService();
@@ -19,20 +20,11 @@ const swapiService = new SwapiService();
 
     <div class="row mb2">
       <div class="col-md-6">
-        <ItemList :get-data="swapiService.getAllPeople" v-slot="{ item }: any">
-          {{ item.name }} - ({{ item.gender }}, {{ item.birthYear }})
-        </ItemList>
-
-        <ItemList :get-data="swapiService.getAllPlanets" v-slot="{ item }: any">
-          {{ item.name }} - ({{ item.population }}, {{ item.rotationPriod }})
-        </ItemList>
-
-        <ItemList
-          :get-data="swapiService.getAllStarships"
-          v-slot="{ item }: any"
-        >
-          {{ item.name }} - ({{ item.model }}, {{ item.manufacturer }})
-        </ItemList>
+        <WithData :get-data="swapiService.getAllPeople" v-slot="{ items }: any">
+          <ItemList :items="items" v-slot="{ item }: any">
+            {{ item.name }} - ({{ item.gender }}, {{ item.birthYear }})
+          </ItemList>
+        </WithData>
       </div>
       <div class="col-md-6">
         <ItemDetails
