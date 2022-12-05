@@ -1,53 +1,20 @@
 <script setup lang="ts">
-import { onMounted, reactive } from "vue";
-import Error from "./Error.vue";
-import Spinner from "./Spinner.vue";
-
 const props = defineProps<{
-  id: number;
-  getData: Function;
-  getImageUrl: Function;
+  item: any;
+  getImageUrl: (id: number) => string;
 }>();
-
-const state = reactive({
-  isLoading: false,
-  isError: false,
-  data: null,
-} as any);
-
-onMounted(async () => {
-  try {
-    state.isLoading = true;
-    state.isError = false;
-    state.data = await props.getData(props.id);
-  } catch (err) {
-    state.isError = true;
-  } finally {
-    state.isLoading = false;
-  }
-});
 </script>
 
 <template>
   <div class="person-details card">
-    <Spinner v-if="state.isLoading && !state.isError" />
+    <img class="person-image" :src="props.getImageUrl(item?.id)" />
 
-    <Error v-if="state.isError" :icon="`/death-star.png`" />
-
-    <p v-if="!state.data && !state.isLoading && !state.isError">
-      Nothing to show
-    </p>
-
-    <template v-if="state.data && !state.isLoading">
-      <img class="person-image" :src="props.getImageUrl(state.data?.id)" />
-
-      <div class="card-body">
-        <h4>{{ state.data?.name }}</h4>
-        <ul class="list-group list-group-flush">
-          <slot :item="state.data"></slot>
-        </ul>
-      </div>
-    </template>
+    <div class="card-body">
+      <h4>{{ item?.name }}</h4>
+      <ul class="list-group list-group-flush">
+        <slot :item="item"></slot>
+      </ul>
+    </div>
   </div>
 </template>
 

@@ -5,9 +5,9 @@ import Spinner from "./Spinner.vue";
 
 const isLoading = ref(false);
 const isError = ref(false);
-const items: Ref<any> = ref([]);
+const data: Ref<any> = ref(null);
 const hasData = computed(
-  () => !isLoading.value && !isError.value && items.value
+  () => !isLoading.value && !isError.value && data.value
 );
 
 const props = defineProps<{
@@ -19,7 +19,7 @@ onMounted(async () => {
     isLoading.value = true;
     isError.value = false;
 
-    items.value = await props.getData();
+    data.value = await props.getData();
   } catch (err) {
     isError.value = true;
   } finally {
@@ -32,6 +32,6 @@ onMounted(async () => {
   <Spinner v-if="isLoading" />
   <Error v-if="isError" />
   <template v-if="hasData">
-    <slot :items="items"></slot>
+    <slot :data="data"></slot>
   </template>
 </template>

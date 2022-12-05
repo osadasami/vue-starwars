@@ -64,10 +64,10 @@ export default class SwapiService {
       name: data.name,
       model: data.model,
       manufacturer: data.manufacturer,
-      costInCredits: data.costInCredits,
+      costInCredits: data.cost_in_Credits,
       crew: data.crew,
       passengers: data.passengers,
-      cargoCapacity: data.cargoCapacity,
+      cargoCapacity: data.cargo_capacity,
     };
   };
 
