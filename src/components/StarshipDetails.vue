@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import SwapiService from "@/services/swapi";
+import { inject } from "vue";
 import ItemDetails from "./ItemDetails.vue";
 import ItemDetailsRecord from "./ItemDetailsRecord.vue";
 import WithData from "./WithData.vue";
 
-const swapiService = new SwapiService();
+const service: any = inject("swapiService");
 
 const props = defineProps<{
   id: number;
@@ -13,12 +13,12 @@ const props = defineProps<{
 
 <template>
   <WithData
-    :get-data="() => swapiService.getStarship(props.id)"
+    :get-data="() => service.getStarship(props.id)"
     v-slot="{ data }: any"
   >
     <ItemDetails
       :item="data"
-      :get-image-url="swapiService.getStarshipImage"
+      :get-image-url="service.getStarshipImage"
       v-slot="{ item }: any"
     >
       <ItemDetailsRecord :label="'Model'" :prop="'model'" :item="item" />

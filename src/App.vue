@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import RandomPlanet from "@/components/RandomPlanet.vue";
-import { useServiceContainerProvider } from "@/services/index";
+import { provide } from "vue";
 import PersonDetails from "./components/PersonDetails.vue";
 import PersonList from "./components/PersonList.vue";
 import PlanetDetails from "./components/PlanetDetails.vue";
 import PlanetList from "./components/PlanetList.vue";
 import StarshipDetails from "./components/StarshipDetails.vue";
 import StarshipList from "./components/StarshipList.vue";
+import SwapiServiceDammy from "./services/swapi-dummy";
 
-useServiceContainerProvider();
+const service = new SwapiServiceDammy();
+provide("swapiService", service);
 </script>
 
 <template>

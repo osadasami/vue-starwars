@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useServiceContainerContext } from "@/services";
+import { inject } from "vue";
 import ItemDetails from "./ItemDetails.vue";
 import ItemDetailsRecord from "./ItemDetailsRecord.vue";
 import WithData from "./WithData.vue";
 
-const { swapiService } = useServiceContainerContext();
+const service: any = inject("swapiService");
 
 const props = defineProps<{
   id: number;
@@ -13,12 +13,12 @@ const props = defineProps<{
 
 <template>
   <WithData
-    :get-data="() => swapiService.getPlanet(props.id)"
+    :get-data="() => service.getPlanet(props.id)"
     v-slot="{ data }: any"
   >
     <ItemDetails
       :item="data"
-      :get-image-url="swapiService.getPlanetImage"
+      :get-image-url="service.getPlanetImage"
       v-slot="{ item }: any"
     >
       <ItemDetailsRecord
