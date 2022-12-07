@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import SwapiService from "@/services/swapi";
+import { useServiceContainerContext } from "@/services";
 import ItemDetails from "./ItemDetails.vue";
 import ItemDetailsRecord from "./ItemDetailsRecord.vue";
 import WithData from "./WithData.vue";
 
-const swapiService = new SwapiService();
+const { swapiService } = useServiceContainerContext();
 
 const props = defineProps<{
   id: number;

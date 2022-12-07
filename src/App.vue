@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import RandomPlanet from "@/components/RandomPlanet.vue";
-import SwapiService from "@/services/swapi";
-import usePeopleStore from "@/stores/people";
+import { useServiceContainerProvider } from "@/services/index";
 import PersonDetails from "./components/PersonDetails.vue";
 import PersonList from "./components/PersonList.vue";
 import PlanetDetails from "./components/PlanetDetails.vue";
@@ -10,8 +9,7 @@ import PlanetList from "./components/PlanetList.vue";
 import StarshipDetails from "./components/StarshipDetails.vue";
 import StarshipList from "./components/StarshipList.vue";
 
-const peopleStore = usePeopleStore();
-const swapiService = new SwapiService();
+useServiceContainerProvider();
 </script>
 
 <template>
