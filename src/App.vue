@@ -8,9 +8,10 @@ import PlanetDetails from "./components/PlanetDetails.vue";
 import PlanetList from "./components/PlanetList.vue";
 import StarshipDetails from "./components/StarshipDetails.vue";
 import StarshipList from "./components/StarshipList.vue";
-import SwapiServiceDammy from "./services/swapi-dummy";
+import SwapiService from "./services/swapi";
 
-const service = new SwapiServiceDammy();
+// const service = new SwapiServiceDammy();
+const service = new SwapiService();
 provide("swapiService", service);
 </script>
 

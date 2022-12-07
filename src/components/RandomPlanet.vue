@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import Error from "@/components/Error.vue";
-import Spinner from "@/components/Spinner.vue";
-import usePlanetStore from "@/stores/planet";
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref, type Ref } from "vue";
+import PlanetDetails from "./PlanetDetails.vue";
 
-const planetStore = usePlanetStore();
+const id: Ref<number> = ref(5);
 let interval: any = null;
 
+function getRandomPlanetId(): number {
+  return Math.floor(Math.random() * 10 + 2);
+}
+
+function updateId() {
+  id.value = getRandomPlanetId();
+  console.log(id.value);
+}
+
 onMounted(async () => {
-  planetStore.getPlanet();
-  interval = setInterval(planetStore.getPlanet, 20000);
+  interval = setInterval(updateId, 20000);
 });
 
 onUnmounted(() => {
@@ -18,42 +24,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="random-planet jumbotron">
-    <Spinner v-if="planetStore.isLoading && !planetStore.isError" />
-
-    <Error v-if="planetStore.isError" :icon="`/death-star.png`" />
-
-    <template v-if="!planetStore.isLoading && !planetStore.isError">
-      <img
-        v-if="planetStore.id"
-        class="planet-image"
-        :src="`https://starwars-visualguide.com/assets/img/planets/${planetStore.id}.jpg`"
-      />
-
-      <div>
-        <h4>{{ planetStore.name }}</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <span class="term">Population</span>
-            <span>{{ planetStore.population }}</span>
-          </li>
-          <li class="list-group-item">
-            <span class="term">Rotation Period</span>
-            <span>{{ planetStore.rotationPeriod }}</span>
-          </li>
-          <li class="list-group-item">
-            <span class="term">Diameter</span>
-            <span>{{ planetStore.diameter }}</span>
-          </li>
-        </ul>
-      </div>
-    </template>
+  <div class="random-planet">
+    <PlanetDetails :id="id" :key="id"></PlanetDetails>
   </div>
 
-  <button
-    @click="planetStore.getPlanet"
-    class="toggle-planet btn btn-primary btn-lg"
-  >
+  <button @click="updateId" class="toggle-planet btn btn-primary btn-lg">
     Get random planet
   </button>
 </template>
@@ -63,26 +38,6 @@ onUnmounted(() => {
   margin-bottom: 30px;
 }
 .random-planet {
-  display: flex;
-  padding: 1rem;
-}
-
-.random-planet .planet-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
-  margin-right: 1rem;
-}
-
-.random-planet .list-group {
-  margin: 1rem 0 0 1rem;
-}
-
-.random-planet .list-group-item {
-  padding: 0.25rem;
-}
-
-.random-planet .list-group-item .term {
-  margin-right: 0.5rem;
+  margin-bottom: 30px;
 }
 </style>
