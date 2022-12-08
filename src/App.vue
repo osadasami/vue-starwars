@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import RandomPlanet from "@/components/RandomPlanet.vue";
-import { provide } from "vue";
+import { provide, ref } from "vue";
 import PersonDetails from "./components/PersonDetails.vue";
 import PersonList from "./components/PersonList.vue";
 import PlanetDetails from "./components/PlanetDetails.vue";
@@ -9,15 +9,24 @@ import PlanetList from "./components/PlanetList.vue";
 import StarshipDetails from "./components/StarshipDetails.vue";
 import StarshipList from "./components/StarshipList.vue";
 import SwapiService from "./services/swapi";
+import SwapiServiceDammy from "./services/swapi-dummy";
 
-// const service = new SwapiServiceDammy();
-const service = new SwapiService();
+const service: any = ref(new SwapiService());
 provide("swapiService", service);
+
+function changeService() {
+  const NextService =
+    service.value instanceof SwapiService ? SwapiServiceDammy : SwapiService;
+
+  service.value = new NextService();
+
+  console.log(`switch to ${NextService.name}`);
+}
 </script>
 
 <template>
   <div>
-    <Header />
+    <Header :on-click="changeService" />
 
     <RandomPlanet />
 

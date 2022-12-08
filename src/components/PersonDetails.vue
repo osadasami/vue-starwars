@@ -15,6 +15,7 @@ const props = defineProps<{
   <WithData
     :get-data="() => service.getPerson(props.id)"
     v-slot="{ data }: any"
+    :key="service"
   >
     <ItemDetails
       :item="data"

@@ -3,11 +3,15 @@ import { inject } from "vue";
 import ItemList from "./ItemList.vue";
 import WithData from "./WithData.vue";
 
-const swapiService: any = inject("swapiService");
+const service: any = inject("swapiService");
 </script>
 
 <template>
-  <WithData :get-data="swapiService.getAllStarships" v-slot="{ data }: any">
+  <WithData
+    :get-data="service.getAllStarships"
+    v-slot="{ data }: any"
+    :key="service"
+  >
     <ItemList :items="data" v-slot="{ item }: any">
       {{ item.name }} - ({{ item.model }}, {{ item.manufacturer }})
     </ItemList>

@@ -15,6 +15,7 @@ const props = defineProps<{
   <WithData
     :get-data="() => service.getStarship(props.id)"
     v-slot="{ data }: any"
+    :key="service"
   >
     <ItemDetails
       :item="data"

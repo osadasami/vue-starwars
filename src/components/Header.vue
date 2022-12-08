@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const props = defineProps<{
+  onClick: () => void;
+}>();
+</script>
+
 <template>
   <div class="header d-flex">
     <h3>
@@ -14,10 +20,14 @@
         <a href="#">Starships</a>
       </li>
     </ul>
+
+    <button @click="props.onClick" class="btn btn-primary btn-sm">
+      Change service
+    </button>
   </div>
 </template>
 
-<style>
+<style scoped>
 .header {
   margin-top: 0.5rem;
   padding-left: 10px;
@@ -44,5 +54,10 @@
 
 .header h3 a:hover {
   color: #00bc8c;
+}
+
+.btn {
+  margin-top: 3px;
+  height: 2rem;
 }
 </style>
