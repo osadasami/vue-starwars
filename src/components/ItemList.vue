@@ -1,18 +1,15 @@
 <script setup lang="ts">
 const props = defineProps<{
   items: any;
+  onItemSelected: (item: any) => void;
 }>();
-
-function selectItem(item: any) {
-  // props.onSelect(item);
-}
 </script>
 
 <template>
   <ul class="item-list list-group">
     <li
       v-for="item in items"
-      @click="selectItem(item)"
+      @click="props.onItemSelected(item)"
       class="list-group-item"
       :class="{
         // 'bg-primary': item.id === props?.selectedItem,

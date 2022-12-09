@@ -4,6 +4,14 @@ import ItemList from "./ItemList.vue";
 import WithData from "./WithData.vue";
 
 const service: any = inject("swapiService");
+const props = withDefaults(
+  defineProps<{
+    onItemSelected: (item: any) => void;
+  }>(),
+  {
+    onItemSelected: () => {},
+  }
+);
 </script>
 
 <template>
@@ -12,7 +20,11 @@ const service: any = inject("swapiService");
     v-slot="{ data }: any"
     :key="service"
   >
-    <ItemList :items="data" v-slot="{ item }: any">
+    <ItemList
+      :items="data"
+      v-slot="{ item }: any"
+      :on-item-selected="props.onItemSelected"
+    >
       {{ item.name }} - ({{ item.model }}, {{ item.manufacturer }})
     </ItemList>
   </WithData>

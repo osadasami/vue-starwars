@@ -2,6 +2,12 @@
 import { onMounted, onUnmounted, ref, type Ref } from "vue";
 import PlanetDetails from "./PlanetDetails.vue";
 
+const props = withDefaults(
+  defineProps<{
+    updateInterval: number;
+  }>(),
+  { updateInterval: 10000 }
+);
 const id: Ref<number> = ref(5);
 let interval: any = null;
 
@@ -15,7 +21,7 @@ function updateId() {
 }
 
 onMounted(async () => {
-  interval = setInterval(updateId, 20000);
+  interval = setInterval(updateId, props.updateInterval);
 });
 
 onUnmounted(() => {
