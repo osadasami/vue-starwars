@@ -7,17 +7,17 @@ const props = defineProps<{
 <template>
   <div class="header d-flex">
     <h3>
-      <a href="#"> Star DB </a>
+      <router-link to="/">Star DB</router-link>
     </h3>
     <ul class="d-flex">
       <li>
-        <a href="#">People</a>
+        <router-link to="/people">People</router-link>
       </li>
       <li>
-        <a href="#">Planets</a>
+        <router-link to="/planets">Planets</router-link>
       </li>
       <li>
-        <a href="#">Starships</a>
+        <router-link to="/starships">Starships</router-link>
       </li>
     </ul>
 
