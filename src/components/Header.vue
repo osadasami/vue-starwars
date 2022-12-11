@@ -26,6 +26,13 @@ console.log(route.name);
       <li :class="{ 'bg-secondary': route.name === 'starships' }">
         <router-link to="/starships">Starships</router-link>
       </li>
+
+      <li :class="{ 'bg-secondary': route.name === 'login' }">
+        <router-link to="/login">Login</router-link>
+      </li>
+      <li :class="{ 'bg-secondary': route.name === 'secret' }">
+        <router-link to="/secret">Secret</router-link>
+      </li>
     </ul>
 
     <button @click="onClick" class="btn btn-primary btn-sm">

@@ -5,6 +5,7 @@ import SwapiService from "./services/swapi";
 import SwapiServiceDammy from "./services/swapi-dummy";
 
 const service: any = ref(new SwapiService());
+
 provide("swapiService", service);
 
 function changeService() {
