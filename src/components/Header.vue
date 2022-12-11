@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
+
 const props = defineProps<{
   onClick: () => void;
 }>();
 
 const { onClick } = props;
+const route = useRoute();
+
+console.log(route.name);
 </script>
 
 <template>
@@ -12,13 +17,13 @@ const { onClick } = props;
       <router-link to="/">Star DB</router-link>
     </h3>
     <ul class="d-flex">
-      <li>
+      <li :class="{ 'bg-secondary': route.name === 'people' }">
         <router-link to="/people">People</router-link>
       </li>
-      <li>
+      <li :class="{ 'bg-secondary': route.name === 'planets' }">
         <router-link to="/planets">Planets</router-link>
       </li>
-      <li>
+      <li :class="{ 'bg-secondary': route.name === 'starships' }">
         <router-link to="/starships">Starships</router-link>
       </li>
     </ul>

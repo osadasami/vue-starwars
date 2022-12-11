@@ -31,6 +31,7 @@ const props = withDefaults(
       <RouterLink
         :to="{ name: 'planets', params: { id: item.id } }"
         class="text-white"
+        :class="{ 'text-success': route.params.id === item.id }"
       >
         {{ item.name }} - ({{ item.population }}, {{ item.rotationPeriod }})
       </RouterLink>
