@@ -31,7 +31,5 @@ onMounted(async () => {
 <template>
   <Spinner v-if="isLoading" />
   <Error v-if="isError" />
-  <template v-if="hasData">
-    <slot :data="data"></slot>
-  </template>
+  <slot v-if="hasData" :data="data"></slot>
 </template>

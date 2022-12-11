@@ -14,17 +14,18 @@ const router = createRouter({
     },
 
     {
-      path: "/people",
+      path: "/people/:id?",
       name: "people",
       component: People,
     },
+
     {
-      path: "/planets",
+      path: "/planets/:id?",
       name: "planets",
       component: Planets,
     },
     {
-      path: "/starships",
+      path: "/starships/:id?",
       name: "starships",
       component: Startships,
     },

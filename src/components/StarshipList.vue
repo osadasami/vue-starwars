@@ -25,7 +25,12 @@ const props = withDefaults(
       v-slot="{ item }: any"
       :on-item-selected="props.onItemSelected"
     >
-      {{ item.name }} - ({{ item.model }}, {{ item.manufacturer }})
+      <RouterLink
+        :to="{ name: 'starships', params: { id: item.id } }"
+        class="text-white"
+      >
+        {{ item.name }} - ({{ item.model }}, {{ item.manufacturer }})
+      </RouterLink>
     </ItemList>
   </WithData>
 </template>

@@ -2,6 +2,8 @@
 const props = defineProps<{
   onClick: () => void;
 }>();
+
+const { onClick } = props;
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const props = defineProps<{
       </li>
     </ul>
 
-    <button @click="props.onClick" class="btn btn-primary btn-sm">
+    <button @click="onClick" class="btn btn-primary btn-sm">
       Change service
     </button>
   </div>

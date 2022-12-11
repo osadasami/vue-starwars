@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject } from "vue";
+import { RouterLink } from "vue-router";
 import ItemList from "./ItemList.vue";
 import WithData from "./WithData.vue";
 
@@ -25,7 +26,12 @@ const props = withDefaults(
       v-slot="{ item }: any"
       :on-item-selected="props.onItemSelected"
     >
-      {{ item.name }} - ({{ item.gender }}, {{ item.birthYear }})
+      <RouterLink
+        :to="{ name: 'people', params: { id: item.id } }"
+        class="text-white"
+      >
+        {{ item.name }} - ({{ item.gender }}, {{ item.birthYear }})
+      </RouterLink>
     </ItemList>
   </WithData>
 </template>
