@@ -17,7 +17,6 @@ watch(props.isLoggedIn, (value: any) => {
 </script>
 
 <template>
-  {{ props }}
   <div class="jumbotron">
     <p>Login to see secret page</p>
     <button @click="props.onLogin" class="btn btn-primary">Login</button>

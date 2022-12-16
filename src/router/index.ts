@@ -1,4 +1,5 @@
 import Login from "@/views/Login.vue";
+import NotFound from "@/views/NotFound.vue";
 import People from "@/views/People.vue";
 import Planets from "@/views/Planets.vue";
 import Secret from "@/views/Secret.vue";
@@ -53,6 +54,7 @@ const router = createRouter({
         isLoggedIn: isLoggedIn,
       },
     },
+    { path: "/:pathMatch(.*)*", component: NotFound },
   ],
 });
 
