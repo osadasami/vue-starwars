@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type ListItem from "@/types/ListItem";
+import type Person from "@/types/Person";
 import { inject } from "vue";
 import ItemDetails from "./ItemDetails.vue";
 import ItemDetailsRecord from "./ItemDetailsRecord.vue";
@@ -14,13 +16,13 @@ const props = defineProps<{
 <template>
   <WithData
     :get-data="() => service.getPerson(props.id)"
-    v-slot="{ data }: any"
+    v-slot="{ data }: { data: Person }"
     :key="service"
   >
     <ItemDetails
       :item="data"
       :get-image-url="service.getPersonImage"
-      v-slot="{ item }: any"
+      v-slot="{ item }: { item: ListItem }"
     >
       <ItemDetailsRecord :label="'Gender'" :prop="'gender'" :item="item" />
 

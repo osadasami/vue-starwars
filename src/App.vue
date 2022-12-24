@@ -10,7 +10,9 @@ provide("swapiService", service);
 
 function changeService() {
   const NextService =
-    service.value instanceof SwapiService ? SwapiServiceDammy : SwapiService;
+    service.value instanceof SwapiServiceDammy
+      ? SwapiService
+      : SwapiServiceDammy;
 
   service.value = new NextService();
 

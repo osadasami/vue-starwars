@@ -9,15 +9,6 @@ import WithData from "./WithData.vue";
 const service: Ref<SwapiService | SwapiServiceDammy> | undefined =
   inject("swapiService");
 const route = useRoute();
-
-const props = withDefaults(
-  defineProps<{
-    onItemSelected: (item: any) => void;
-  }>(),
-  {
-    onItemSelected: () => {},
-  }
-);
 </script>
 
 <template>
@@ -27,11 +18,7 @@ const props = withDefaults(
     v-slot="{ data }: any"
     :key="(service as any)"
   >
-    <ItemList
-      :items="data"
-      v-slot="{ item }: any"
-      :on-item-selected="props.onItemSelected"
-    >
+    <ItemList :items="data" v-slot="{ item }: any">
       <RouterLink
         :to="{ name: 'planets', params: { id: item.id } }"
         class="text-white"

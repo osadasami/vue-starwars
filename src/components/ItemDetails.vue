@@ -1,16 +1,18 @@
 <script setup lang="ts">
+import type ListItem from "@/types/ListItem";
+
 const props = defineProps<{
-  item: any;
+  item: ListItem;
   getImageUrl: (id: number) => string;
 }>();
 </script>
 
 <template>
   <div class="person-details card">
-    <img class="person-image" :src="props.getImageUrl(item?.id)" />
+    <img class="person-image" :src="props.getImageUrl(item.id)" />
 
     <div class="card-body">
-      <h4>{{ item?.name }}</h4>
+      <h4>{{ item.name }}</h4>
       <ul class="list-group list-group-flush">
         <slot :item="item"></slot>
       </ul>
