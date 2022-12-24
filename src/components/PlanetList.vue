@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import type SwapiService from "@/services/swapi";
+import type SwapiServiceDammy from "@/services/swapi-dummy";
+import { inject, type Ref } from "vue";
 import { useRoute } from "vue-router";
 import ItemList from "./ItemList.vue";
 import WithData from "./WithData.vue";
 
-const service: any = inject("swapiService");
+const service: Ref<SwapiService | SwapiServiceDammy> | undefined =
+  inject("swapiService");
 const route = useRoute();
 
 const props = withDefaults(
@@ -19,9 +22,10 @@ const props = withDefaults(
 
 <template>
   <WithData
+    v-if="service"
     :get-data="service.getAllPlanets"
     v-slot="{ data }: any"
-    :key="service"
+    :key="(service as any)"
   >
     <ItemList
       :items="data"

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
-import { provide, ref } from "vue";
+import { provide, ref, type Ref } from "vue";
 import SwapiService from "./services/swapi";
 import SwapiServiceDammy from "./services/swapi-dummy";
 
-const service: any = ref(new SwapiService());
+const service: Ref<SwapiService | SwapiServiceDammy> = ref(new SwapiService());
 
 provide("swapiService", service);
 
