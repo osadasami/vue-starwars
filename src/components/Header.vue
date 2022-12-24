@@ -50,6 +50,9 @@ console.log(route.name);
 .header ul li {
   list-style: none;
   margin: 0;
+}
+
+.header ul li a {
   padding: 0.5rem 1rem;
   border-radius: 3px;
 }
