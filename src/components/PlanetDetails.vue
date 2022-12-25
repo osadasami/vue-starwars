@@ -27,19 +27,14 @@ const props = defineProps<{
       :get-image-url="service.getPlanetImage"
       v-slot="{ item }: any"
     >
-      <ItemDetailsRecord
-        :label="'Population'"
-        :prop="'population'"
-        :item="item"
-      />
+      <ItemDetailsRecord :label="'Population'" :value="item.population" />
 
       <ItemDetailsRecord
         :label="'Rotation Period'"
-        :prop="'rotationPeriod'"
-        :item="item"
+        :value="item.rotationPeriod"
       />
 
-      <ItemDetailsRecord :label="'Diameter'" :prop="'diameter'" :item="item" />
+      <ItemDetailsRecord :label="'Diameter'" :value="item.diameter" />
     </ItemDetails>
   </WithData>
 </template>

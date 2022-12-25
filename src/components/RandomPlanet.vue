@@ -9,7 +9,7 @@ const props = withDefaults(
   { updateInterval: 10000 }
 );
 const id: Ref<number> = ref(5);
-let interval: any = null;
+let interval: number = 0;
 
 function getRandomPlanetId(): number {
   return Math.floor(Math.random() * 10 + 2);

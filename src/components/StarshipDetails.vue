@@ -27,31 +27,21 @@ const props = defineProps<{
       :get-image-url="service.getStarshipImage"
       v-slot="{ item }: any"
     >
-      <ItemDetailsRecord :label="'Model'" :prop="'model'" :item="item" />
+      <ItemDetailsRecord :label="'Model'" :value="item.model" />
 
-      <ItemDetailsRecord
-        :label="'Manufacturer'"
-        :prop="'manufacturer'"
-        :item="item"
-      />
+      <ItemDetailsRecord :label="'Manufacturer'" :value="item.manufacturer" />
 
       <ItemDetailsRecord
         :label="'Cost In Credits'"
-        :prop="'costInCredits'"
-        :item="item"
+        :value="item.costInCredits"
       />
 
-      <ItemDetailsRecord :label="'Crew'" :prop="'crew'" :item="item" />
-      <ItemDetailsRecord
-        :label="'Passengers'"
-        :prop="'passengers'"
-        :item="item"
-      />
+      <ItemDetailsRecord :label="'Crew'" :value="item.crew" />
+      <ItemDetailsRecord :label="'Passengers'" :value="item.passengers" />
 
       <ItemDetailsRecord
         :label="'Cargo Capacity'"
-        :prop="'cargoCapacity'"
-        :item="item"
+        :value="item.cargoCapacity"
       />
     </ItemDetails>
   </WithData>

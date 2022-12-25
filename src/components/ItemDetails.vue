@@ -9,7 +9,7 @@ const props = defineProps<{
 
 <template>
   <div class="person-details card">
-    <img class="person-image" :src="props.getImageUrl(item.id)" />
+    <img class="person-image" :src="getImageUrl(item.id)" />
 
     <div class="card-body">
       <h4>{{ item.name }}</h4>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type ListItem from "@/types/ListItem";
 import type Person from "@/types/Person";
 import { ServiceKey } from "@/types/Symbols";
 import { inject } from "vue";
@@ -27,17 +26,11 @@ const props = defineProps<{
     <ItemDetails
       :item="data"
       :get-image-url="service.getPersonImage"
-      v-slot="{ item }: { item: ListItem }"
+      v-slot="{ item }: { item: any }"
     >
-      <ItemDetailsRecord :label="'Gender'" :prop="'gender'" :item="item" />
-
-      <ItemDetailsRecord
-        :label="'Birth year'"
-        :prop="'birthYear'"
-        :item="item"
-      />
-
-      <ItemDetailsRecord :label="'Eye color'" :prop="'eyeColor'" :item="item" />
+      <ItemDetailsRecord :label="'Gender'" :value="item.gender" />
+      <ItemDetailsRecord :label="'Birth year'" :value="item.birthYear" />
+      <ItemDetailsRecord :label="'Eye color'" :value="item.eyeColor" />
     </ItemDetails>
   </WithData>
 </template>

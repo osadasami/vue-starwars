@@ -1,14 +1,13 @@
 <script setup lang="ts">
 const props = defineProps<{
   label: string;
-  prop: string;
-  item: any;
+  value: string;
 }>();
 </script>
 
 <template>
   <li class="list-group-item">
-    <span class="term">{{ props.label }}</span>
-    <span>{{ props.item[props.prop] }}</span>
+    <span class="term">{{ label }}</span>
+    <span>{{ value }}</span>
   </li>
 </template>
