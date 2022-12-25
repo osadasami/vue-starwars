@@ -9,7 +9,7 @@ if (props.isLoggedIn.value) {
   router.push({ name: "secret" });
 }
 
-watch(props.isLoggedIn, (value: any) => {
+watch(props.isLoggedIn, () => {
   if (props.isLoggedIn.value) {
     router.push({ name: "secret" });
   }
