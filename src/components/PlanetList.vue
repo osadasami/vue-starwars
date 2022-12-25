@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import type SwapiService from "@/services/swapi";
-import type SwapiServiceDammy from "@/services/swapi-dummy";
-import { inject, type Ref } from "vue";
+import { ServiceKey } from "@/types/Symbols";
+import { inject } from "vue";
 import { useRoute } from "vue-router";
 import ItemList from "./ItemList.vue";
 import WithData from "./WithData.vue";
 
-const service: Ref<SwapiService | SwapiServiceDammy> | undefined =
-  inject("swapiService");
 const route = useRoute();
+
+const service = inject(ServiceKey);
+
+if (!service) {
+  throw new Error(`Could not resolve ${ServiceKey}`);
+}
 </script>
 
 <template>

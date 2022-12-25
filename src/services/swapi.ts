@@ -13,6 +13,10 @@ export default class SwapiService implements Service {
   apiBase = "https://swapi.py4e.com/api";
   imageBase = "https://starwars-visualguide.com/assets/img";
 
+  toString() {
+    return this.constructor.name;
+  }
+
   getResource = async <T>(url: string): Promise<T> => {
     const res = await fetch(`${this.apiBase}${url}`);
 

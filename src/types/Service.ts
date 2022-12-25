@@ -10,6 +10,10 @@ interface Service {
   getPlanet(id: number): Promise<Planet>;
   getAllStarships(): Promise<Starship[]>;
   getStarship(id: number): Promise<Starship>;
+  getPersonImage(id: number): string;
+  getStarshipImage(id: number): string;
+  getPlanetImage(id: number): string;
+  toString(): string;
 }
 
 export default Service;

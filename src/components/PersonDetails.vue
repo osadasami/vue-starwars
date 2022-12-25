@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type ListItem from "@/types/ListItem";
 import type Person from "@/types/Person";
+import { ServiceKey } from "@/types/Symbols";
 import { inject } from "vue";
 import ItemDetails from "./ItemDetails.vue";
 import ItemDetailsRecord from "./ItemDetailsRecord.vue";
 import WithData from "./WithData.vue";
 
-const service: any = inject("swapiService");
+const service = inject(ServiceKey);
+
+if (!service) {
+  throw new Error(`Could not resolve ${ServiceKey}`);
+}
 
 const props = defineProps<{
   id: number;
@@ -17,7 +22,7 @@ const props = defineProps<{
   <WithData
     :get-data="() => service.getPerson(props.id)"
     v-slot="{ data }: { data: Person }"
-    :key="service"
+    :key="service.toString()"
   >
     <ItemDetails
       :item="data"
